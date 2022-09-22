@@ -1,0 +1,24 @@
+﻿<Application x:Class="Desktop_cha_qaqc_phase2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Desktop_cha_qaqc_phase2">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Arial"></Setter>
+            </Style>
+            <Color x:Key="blue" >#FF0E3A60</Color>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Style/ColumnHeader.xaml" />
+                <ResourceDictionary Source="/Resources/Style/Button.xaml"/>
+                <ResourceDictionary Source="/Resources/Style/TextBlock.xaml"/>
+                <ResourceDictionary Source="/Resources/Style/Stroll.xaml"/>
+                <ResourceDictionary Source="/Resources/Style/DataGrid.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

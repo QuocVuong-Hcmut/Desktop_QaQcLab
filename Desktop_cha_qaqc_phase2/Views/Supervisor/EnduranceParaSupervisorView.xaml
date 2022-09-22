@@ -1,0 +1,230 @@
+﻿<UserControl x:Class="Desktop_cha_qaqc_phase2.Views.Supervisor.EnduranceParaSupervisorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Desktop_cha_qaqc_phase2.Views.Supervisor"
+             mc:Ignorable="d" 
+             xmlns:converter="clr-namespace:Desktop_cha_qaqc_phase2.ValueConverter"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="280" 
+             Width="1100">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="IsReadOnly" Value="True"></Setter>
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <StackPanel >
+            <Grid Height="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid HorizontalAlignment="Right"  Width="4"  Background="#FF00294D"></Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="4"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock FontSize="30" FontWeight="Bold">Hệ 1</TextBlock>
+                                <Grid Width="5"></Grid>
+                                <CheckBox IsHitTestVisible="False" IsChecked="{Binding System1}" >
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="3" ScaleY="3" />
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                            </WrapPanel>
+                        </Grid>
+                        <Grid Grid.Row="1"  Background="#FF00294D"></Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="21">XI LANH 1</TextBlock>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="21">XI LANH 2</TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="#FF00294D"></Grid>
+                    <Grid Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="4"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock FontSize="30" FontWeight="Bold">Hệ 2</TextBlock>
+                                    <Grid Width="5"></Grid>
+                                    <CheckBox IsHitTestVisible="False" IsChecked="{Binding System2}" >
+                                        <CheckBox.LayoutTransform>
+                                            <ScaleTransform ScaleX="3" ScaleY="3" />
+                                        </CheckBox.LayoutTransform>
+                                    </CheckBox>
+                                </WrapPanel>
+                            </Grid>
+                            <Grid Grid.Row="1"  Background="#FF00294D"></Grid>
+                            <Grid Grid.Row="2">
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="21">XI LANH 3</TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Height="4"  Background="#FF00294D"></Grid>
+            <Grid Height="176">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="4"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontSize="21">Lực nén</TextBlock>
+                        <Grid Grid.Column="1"  Background="#FF00294D"></Grid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding CompressionForce1}" Grid.Column="0"></TextBox>
+                        <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding CompressionForce2}" Grid.Column="1"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Width="4"  Background="#FF00294D"></Grid>
+                        <Grid Grid.Column="1">
+                            <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding CompressionForce3}"  Margin="5"></TextBox>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FF00294D"></Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="4"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontSize="21">Thời gian giữ</TextBlock>
+                            <Grid Grid.Column="1"  Background="#FF00294D"></Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding TimeOccupying1}" ></TextBox>
+                            <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding TimeOccupying2}" Grid.Column="1" ></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Width="4"  Background="#FF00294D"></Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding TimeOccupying3}" ></TextBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FF00294D"></Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="4"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" FontSize="21">Số lần nhấn còn lại</TextBlock>
+                            <Grid Grid.Column="1"  Background="#FF00294D"></Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding NumberClick1}" ></TextBox>
+                            <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding NumberClick2}" Grid.Column="1" ></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Width="4"  Background="#FF00294D"></Grid>
+                            <Grid Grid.Column="1">
+                                <TextBox IsReadOnly="{Binding IsEdit}" Text="{Binding NumberClick3}" ></TextBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

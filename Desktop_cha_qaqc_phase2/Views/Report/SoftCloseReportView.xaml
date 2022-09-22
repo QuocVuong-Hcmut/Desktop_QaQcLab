@@ -1,0 +1,572 @@
+﻿<UserControl x:Class="Desktop_cha_qaqc_phase2.Views.Report.SoftCloseReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http:://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="//schemas.microsoft.com/expression/blend/2008"
+             xmlns:mvvmlight="clr-namespace:GalaSoft.MvvmLight;assembly=GalaSoft.MvvmLight"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:uc="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report"
+             xmlns:converter="clr-namespace:Desktop_cha_qaqc_phase2.ValueConverter"
+             d:DesignHeight="750"
+             d:DesignWidth="850"
+             xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="500">
+    <UserControl.Resources>
+        <converter:BooleanToInvertBoolean x:Key="BooleanToInvertBoolean" />
+        <converter:IntToTestPurposeConverter x:Key="IntToTestPurposeConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <materialdesign:DialogHost DataContext="{Binding DataConfigDialogViewModel}"
+                                   IsOpen="{Binding IsOpen}">
+            <materialdesign:DialogHost.DialogContent>
+                <Grid Height="270"
+                      Width="500">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel  Margin="20">
+                            <CheckBox IsChecked="{Binding Mode,UpdateSourceTrigger=PropertyChanged}">Mặc định</CheckBox>
+                            <CheckBox IsChecked="{Binding Mode,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToInvertBoolean}}">Tùy chỉnh</CheckBox>
+                            <TextBox Text="{Binding NumOfSamples,UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     IsEnabled="{Binding Mode, Converter={StaticResource BooleanToInvertBoolean}}"
+                                     HorizontalAlignment="Left"
+                                     Width="100"
+                                     materialdesign:HintAssist.Hint="Số mẫu"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Left">
+                            <Button Style="{StaticResource NormalButton}"
+                                    Margin="20"
+                                    Content="Save"
+                                    Command="{Binding SaveCommand}"></Button>
+                            <Button Style="{StaticResource NormalButton}"
+                                    Margin="20"
+                                    Content="Cancel"
+                                    Command="{Binding CancelCommand}"></Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1"
+                          Margin="20 ">
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding ListSamples,UpdateSourceTrigger=PropertyChanged}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Số thứ tự"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding stt,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Mẫu"
+                                                    Binding="{Binding Sample,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </materialdesign:DialogHost.DialogContent>
+        </materialdesign:DialogHost>
+        <materialdesign:DialogHost DataContext="{Binding ListExportedReportViewModel}"
+                                   IsOpen="{Binding IsOpen}">
+            <materialdesign:DialogHost.DialogContent>
+                <Grid Height="300"
+                      Width="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <DataGrid Margin="20"
+                                  ItemsSource="{Binding ListExportedReport}"
+                                  Name="ListExportedReports"
+                                  CanUserAddRows="False"
+                                  SelectedItem="{Binding SelectedReport}"
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Ngày bắt đầu"
+                                                    Binding="{Binding StartDate}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ngày kết thúc"
+                                                    Binding="{Binding EndDate}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ghi chú"
+                                                    Binding="{Binding Note}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Mục đích kiểm tra"
+                                                    Binding="{Binding TestPurpose}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Mã sản phẩm"
+                                                    Binding="{Binding ProductName}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Margin="20"
+                          Grid.Row="1">
+                        <Button Style="{StaticResource NormalButton}"
+                                HorizontalAlignment="Left"
+                                Width="125"
+                                Content="OK"
+                                Command="{Binding ConfirmCommand}"></Button>
+                    </Grid>
+                </Grid>
+            </materialdesign:DialogHost.DialogContent>
+        </materialdesign:DialogHost>
+        <Grid Margin="0,0,0,65">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0"
+                          Grid.Column="0">
+                        <Label Margin="10"
+                               VerticalAlignment="Center"
+                               Content="Từ ngày"
+                               FontSize="18"></Label>
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Grid.Column="1">
+                        <DatePicker SelectedDate="{Binding TimeStampStart,UpdateSourceTrigger=LostFocus}"
+                                    Margin="5"
+                                    Width="140"
+                                    materialdesign:HintAssist.Hint="Pick Date"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Grid.Column="2">
+                        <Label Margin="5"
+                               FontSize="18"
+                               VerticalAlignment="Center">
+                            <AccessText TextWrapping="WrapWithOverflow">Mục đích kiểm tra</AccessText>
+                        </Label>
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Grid.Column="3">
+                        <ComboBox SelectionChanged="ComboBox_SelectionChanged"
+                                  Text="{Binding TestPurpose, Converter= {StaticResource IntToTestPurposeConverter},UpdateSourceTrigger=LostFocus}"
+                                  Name="PurposeCombobox"
+                                  Margin="2"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  materialdesign:HintAssist.Hint="Mục đích"
+                                  materialdesign:TextFieldAssist.HasClearButton="True"
+                                  Width="150"
+                                  Height="50"
+                                  FontSize="10">
+                            <ComboBoxItem Content="Định kỳ" />
+                            <ComboBoxItem Content="Bất thường" />
+                            <ComboBoxItem Content="SP mới" />
+                            <ComboBoxItem Content="Khác" />
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Grid.Column="0">
+                        <Label Margin="10"
+                               VerticalAlignment="Center"
+                               Content="Đến ngày"
+                               FontSize="18"></Label>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Grid.Column="1">
+                        <DatePicker SelectedDate="{Binding TimeStampFinish, UpdateSourceTrigger=LostFocus}"
+                                    Margin="5"
+                                    Width="140"
+                                    materialdesign:HintAssist.Hint="Pick Date"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Grid.Column="2">
+                        <Label Visibility="Hidden"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               Content="Chú thích"
+                               FontSize="18"></Label>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="18*" />
+                            <ColumnDefinition Width="59*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Visibility="Hidden"
+                                 Width="150"
+                                 Text="{Binding Comment,UpdateSourceTrigger=LostFocus}"
+                                 Name="description"
+                                 Margin="2"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 VerticalAlignment="Top"
+                                 TextWrapping="Wrap"
+                                 materialdesign:HintAssist.Hint="Chú thích"
+                                 IsEnabled="False"
+                                 Grid.ColumnSpan="2"></TextBox>
+                    </Grid>
+                    <StackPanel Grid.Column="4"
+                                Grid.RowSpan="3">
+                        <Button Margin="20 20 20 5"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource NormalButton}"
+                                Height="40"
+                                Width="200"
+                                FontSize="25"
+                                Content="Xem dữ liệu"
+                                Command="{Binding DataWatchingCommand}" />
+                        <Button Margin="20 5 20 5"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource NormalButton}"
+                                Height="40"
+                                Width="200"
+                                FontSize="25"
+                                Content="Truy Xuất"
+                                Command="{Binding ImportDataCommand}" />
+                        <Button Margin="20 5 20 5"
+                                Style="{StaticResource NormalButton}"
+                                Height="40"
+                                Width="200"
+                                FontSize="25"
+                                Content="Xuất Excel"
+                                Command="{Binding ExportDataCommand}" />
+                    </StackPanel>
+                    <Grid Grid.Row="2"
+                          Grid.Column="0">
+                        <Label VerticalAlignment="Center"
+                               Margin="10"
+                               Content="Sản phẩm"
+                               FontSize="18"></Label>
+                    </Grid>
+                    <Grid Grid.Row="2"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="3">
+                        <StackPanel Margin="12,0,0,0"
+                                    Orientation="Horizontal">
+                            <ComboBox ItemsSource="{Binding ListProductNames}"
+                                      Height="40"
+                                      Width="250"
+                                      Text="{Binding ProductName}"
+                                      VerticalContentAlignment="Center" />
+                            <Label VerticalAlignment="Center"
+                                   Margin="10"
+                                   Content="NVKT"
+                                   FontSize="18"></Label>
+                            <ComboBox ItemsSource="{Binding ListTesterIds}"
+                                      Text="{Binding TesterId}"
+                                      VerticalContentAlignment="Center"
+                                      Margin="0"
+                                      Height="40"
+                                      Width="150"></ComboBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.Resources>
+                        <FontFamily x:Key="FontAwesome">/Fonts/fontawesome-webfont.ttf#FontAwesome</FontFamily>
+                    </Grid.Resources>
+                    <Viewbox>
+                        <Border Margin="50 18 50 0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                BorderThickness="0"
+                                BorderBrush="Black"
+                                Width="800"
+                                Height="250">
+                            <DataGrid CanUserSortColumns="False"
+                                      Height="auto"
+                                      RowBackground="#FFBAD3E0"
+                                      AlternatingRowBackground="#E4F0FF"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      AutoGenerateColumns="False"
+                                      BorderBrush="Black"
+                                      BorderThickness="0"
+                                      SelectionMode="Extended"
+                                      GridLinesVisibility="None"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto"
+                                      ItemsSource="{Binding ListReport}"
+                                      Background="#FFA7A3A3"
+                                      EnableColumnVirtualization="False"
+                                      AreRowDetailsFrozen="True"
+                                      CanUserReorderColumns="False"
+                                      CanUserAddRows="False"
+                                      CellEditEnding="DataGrid_CellEditEnding">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background"
+                                                Value="#00447F"></Setter>
+                                        <Setter Property="FontWeight"
+                                                Value="DemiBold"></Setter>
+                                        <Setter Property="HorizontalContentAlignment"
+                                                Value="Center" />
+                                        <Setter Property="Foreground"
+                                                Value="White"></Setter>
+                                        <Setter Property="Height"
+                                                Value="25"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Số lần thử"
+                                                        Width="150"
+                                                        Binding="{Binding NumberOfClosing}"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Số lần thử"></TextBlock>
+                                                    <fa:FontAwesome Margin="5 3 0 3"
+                                                                    Height="30"
+                                                                    Foreground="#FF68EB48"
+                                                                    Icon="ArrowDown"></fa:FontAwesome>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Thời gian nắp đóng êm"
+                                                        Width="200"
+                                                        Binding="{Binding FallTimeLid}"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Thời gian nắp đóng êm"></TextBlock>
+                                                    <fa:FontAwesome Margin="5 3 0 3"
+                                                                    Height="30"
+                                                                    Foreground="#FF68EB48"
+                                                                    Icon="ArrowDown"></fa:FontAwesome>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridCheckBoxColumn Header="Chân nắp không rơi ra"
+                                                            Width="200"
+                                                            Binding="{Binding IsBumperLidIntact,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Chân nắp không rơi ra"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="Nắp không rò rỉ dầu"
+                                                            Width="200"
+                                                            Binding="{Binding IsBumperLidUnleaked,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Nắp không rò rỉ dầu"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="Kết quả đánh giá"
+                                                            Width="200"
+                                                            Binding="{Binding IsLidPassed,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Kết quả đánh giá"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridTextColumn Header="Thời gian đế đóng êm"
+                                                        Width="200"
+                                                        Binding="{Binding FallTimeRing,UpdateSourceTrigger=LostFocus}"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Thời gian đế đóng êm"></TextBlock>
+                                                    <fa:FontAwesome Margin="5 3 0 3"
+                                                                    Height="30"
+                                                                    Foreground="#FF68EB48"
+                                                                    Icon="ArrowDown"></fa:FontAwesome>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridCheckBoxColumn Header="Chân đế không rơi"
+                                                            Width="200"
+                                                            Binding="{Binding IsBumperRingIntact,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Chân đế không rơi"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="Đế không rò rỉ dầu"
+                                                            Width="200"
+                                                            Binding="{Binding IsBumperRingUnleaked,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Đế không rò rỉ dầu"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridCheckBoxColumn Header="Kết quả đánh giá"
+                                                            Width="200"
+                                                            Binding="{Binding IsRingPassed,UpdateSourceTrigger=LostFocus}"
+                                                            IsReadOnly="True">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Kết quả đánh giá"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+                                    <DataGridTextColumn Header="Tổng lỗi"
+                                                        Width="200"
+                                                        Binding="{Binding NumberOfError,UpdateSourceTrigger=LostFocus}"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Tổng lỗi"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                            <!--gittest-->
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Ghi Chú"
+                                                        Width="200"
+                                                        Binding="{Binding Note,UpdateSourceTrigger=LostFocus}"
+                                                        IsReadOnly="False">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Ghi Chú"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                            <!--gittest-->
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Nhân viên KT"
+                                                        Width="200"
+                                                        Binding="{Binding Tester,UpdateSourceTrigger=LostFocus}"
+                                                        IsReadOnly="True">
+                                        <DataGridTextColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="2 4 2 2"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Text="Nhân viên KT"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTextColumn.HeaderTemplate>
+                                        <DataGridTextColumn.Foreground>
+                                            <SolidColorBrush Color="Black" />
+                                        </DataGridTextColumn.Foreground>
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent"></Setter>
+                                            </Style>
+                                            <!--gittest-->
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

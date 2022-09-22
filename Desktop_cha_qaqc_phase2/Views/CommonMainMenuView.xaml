@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="Desktop_cha_qaqc_phase2.Views.CommonMainMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="Desktop_cha_qaqc_phase2.Views"
+             xmlns:settingviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.SettingViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:settingview ="clr-namespace:Desktop_cha_qaqc_phase2.Views.Setting"
+             xmlns:supervisorviewmodel="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.SupervisorViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:supervisorview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Supervisor"
+             xmlns:warningviewmodel="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.WarningViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:warningview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Warning"
+             xmlns:historyviewmodel="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.HistoryViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:historyview="clr-namespace:Desktop_cha_qaqc_phase2.Views.History"
+             xmlns:viewtest="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:reportviewmodel="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.ReportViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:reportview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report"
+             xmlns:endurancevm="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.ReportViewModel.EnduranceReportViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+             xmlns:enduranceview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report.EnduranceReportView"
+             xmlns:converter="clr-namespace:Desktop_cha_qaqc_phase2.ValueConverter"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             Name="CommonMainMenu">
+    <UserControl.Resources>
+        <converter:BooleanToMenuButtonBackground x:Key="BooleanToMenuButtonBackground"/>
+    </UserControl.Resources>
+    <!--DataContext ="{StaticResource SettingVM}"-->
+    <Grid Height="1060.3" Width="1717.8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <WrapPanel VerticalAlignment="Top"  Height="125" x:Name="Menu_panel">
+                <Button x:Name="SoftClose_Machine"
+                    Width="429"
+                    Command="{Binding ReliabilityCommand}"
+                    Height="{Binding ElementName=Menu_panel,Path=ActualHeight}"
+                    Style="{StaticResource FlatButton}"
+                    FontFamily="Arial"
+                    FontSize="23pt"
+                    Background="{Binding IsSoftCloseSelected, Converter={StaticResource BooleanToMenuButtonBackground}}">
+                    <Bold>MKT ĐỘ BỀN NBC</Bold>
+                </Button>
+                <Grid Width="0.9"></Grid>
+                <Button x:Name="ForcedClose_Machine"
+                    Width="429"
+                    Command="{Binding DeformationCommand}"
+                    Height="{Binding ElementName=Menu_panel,Path=ActualHeight}"
+                    Style="{StaticResource FlatButton}"
+                    FontFamily="Arial"
+                    FontSize="23pt"
+                    Background="{Binding IsForcedCloseSelected,Converter={StaticResource BooleanToMenuButtonBackground}}"
+                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                    <Bold>MKT ĐỘ BỀN CƯỠNG BỨC NBC</Bold>
+                </Button>
+                <Grid Width="0.9">
+                </Grid>
+                <StackPanel>
+                    <Button
+                    x:Name="Endurance_Machine"
+                    Width="429"
+                    Command="{Binding EnduranceCommand}"
+                    Height="{Binding ElementName=Menu_panel,Path=ActualHeight}"
+                    FontFamily="Arial"
+                    FontSize="23pt"
+                    Style="{StaticResource FlatButton}"
+                    Background="{Binding IsEnduranceSelected, Converter={StaticResource BooleanToMenuButtonBackground}}"
+                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                        <Bold>
+                            <AccessText TextWrapping="WrapWithOverflow" >
+                                MKT ĐỘ BỀN BIẾN DẠNG NBC
+                            </AccessText>
+                        </Bold>
+                    </Button>
+                    <Popup x:Name="PopupTest">
+                        <Popup.Resources>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="{Binding IsPopupOpen}"></Setter>
+                                <Setter Property="StaysOpen" Value="False"></Setter>
+                            </Style>
+                        </Popup.Resources>
+                        <StackPanel Background="#78BAED" >
+                            <Button
+                                Name="btn1"
+                                Margin="15"
+                                Grid.Column="0"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Height="48"
+                                Width="200"
+                                Background="#FF3564A0"
+                                Foreground="White"
+                                FontSize="20"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="TẢI TĨNH"
+                                Command="{Binding StaticLoadCommand}">
+                            </Button>
+                            <Button 
+                                Name="btn2"
+                                Margin="15"
+                                Grid.Column="0"
+                                IsDefault="True"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Height="48"
+                                Width="200"
+                                Background="#FF3564A0"
+                                Foreground="White"
+                                FontSize="20"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="LỰC UỐN"
+                                Command="{Binding CurlingForceCommand}"/>
+                            <Button 
+                                Name="btn3"
+                                Margin="15"
+                                Grid.Column="0"
+                                IsDefault="True"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Height="48"
+                                Width="200"
+                                Background="#FF3564A0"
+                                Foreground="White"
+                                FontSize="20"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Content="ROCKTEST"
+                                Command="{Binding RockTestCommand}"/>
+                        </StackPanel>
+                    </Popup>
+                </StackPanel>
+                <Button x:Name="Waterproofing_Machine"
+                    Width="429"
+                    Command="{Binding WaterProofingCommand}"
+                    Height="{Binding ElementName=Menu_panel,Path=ActualHeight}"
+                    Style="{StaticResource FlatButton}"
+                    FontFamily="Arial"
+                    FontSize="23pt"
+                    Background="{Binding IsWaterProofingSelected,Converter={StaticResource BooleanToMenuButtonBackground}}"
+                    ToolTip="Resource name: MaterialDesignRaisedButton">
+                    <Bold>
+                        <AccessText TextWrapping="WrapWithOverflow" >
+                            MKT CHỐNG THẤM NBC
+                        </AccessText>
+                    </Bold>
+                </Button>
+            </WrapPanel>
+        </Grid>
+        <Grid Grid.Row ="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="764*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Stretch="Uniform" StretchDirection="Both" Grid.ColumnSpan="2">
+                <ContentControl Content="{Binding CurrentViewModel}">
+                    <ContentControl.Resources>
+                        <!--Setting-->
+                        <DataTemplate DataType="{x:Type settingviewmodel:SoftCloseSettingsViewModel}">
+                            <settingview:SoftCloseSettingView></settingview:SoftCloseSettingView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type settingviewmodel:EnduranceSettingsViewModel}">
+                            <settingview:EnduranceSettingview></settingview:EnduranceSettingview>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type settingviewmodel:ForcedCloseSettingsViewModel}">
+                            <settingview:ForcedCloseSettingView></settingview:ForcedCloseSettingView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type settingviewmodel:WaterProofingSettingsViewModel}">
+                            <settingview:WaterProofingSettingView></settingview:WaterProofingSettingView>
+                        </DataTemplate>
+
+                        <!--Supervisor-->
+                        <DataTemplate DataType="{x:Type supervisorviewmodel:SoftCloseSupervisorViewModel}">
+                            <supervisorview:SoftCloseSupervisorView></supervisorview:SoftCloseSupervisorView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type supervisorviewmodel:EnduranceSupervisorViewModel}">
+                            <supervisorview:EnduranceSupervisorView></supervisorview:EnduranceSupervisorView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type supervisorviewmodel:ForcedCloseSupervisorViewModel}">
+                            <supervisorview:ForcedCloseSupervisorView></supervisorview:ForcedCloseSupervisorView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type supervisorviewmodel:WaterProofingSupervisorViewModel}">
+                            <supervisorview:WaterProofingSupervisorView></supervisorview:WaterProofingSupervisorView>
+                        </DataTemplate>
+
+                        <!--Report-->
+                        <DataTemplate DataType="{x:Type reportviewmodel:ForcedCloseReportViewModel}">
+                            <reportview:ForcedCloseReportView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type reportviewmodel:SoftCloseReportViewModel}">
+                            <reportview:SoftCloseReportView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type reportviewmodel:WaterProofingReportViewModel}">
+                            <reportview:WaterProofingReportView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type endurancevm:EnduranceCurlingForceTestReportViewModel}">
+                            <enduranceview:EnduranceCurlingForceTestReportView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type endurancevm:EnduranceRockTestReportViewModel}">
+                            <enduranceview:EnduranceRockTestReportView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type endurancevm:EnduranceStaticLoadTestReportViewModel}">
+                            <enduranceview:EnduranceStaticLoadTestReportView/>
+                        </DataTemplate>
+                        <!--Warning-->
+                        <DataTemplate DataType="{x:Type warningviewmodel:ForcedCloseWarningViewModel}">
+                            <warningview:CommonWarningView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type warningviewmodel:SoftCloseWarningViewModel}">
+                            <warningview:CommonWarningView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type warningviewmodel:EnduranceWarningViewModel}">
+                            <warningview:CommonWarningView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type warningviewmodel:WaterProofingWarningViewModel}">
+                            <warningview:CommonWarningView/>
+                        </DataTemplate>
+                        <!--History-->
+                        <DataTemplate DataType="{x:Type historyviewmodel:ForcedCloseHistoryViewModel}">
+                            <historyview:ForcedCloseHistoryView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type historyviewmodel:SoftCloseHistoryViewModel}">
+                            <historyview:SoftCloseHistoryView></historyview:SoftCloseHistoryView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type historyviewmodel:EnduranceHistoryViewModel}">
+                            <historyview:EnduranceHistoryView></historyview:EnduranceHistoryView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type historyviewmodel:WaterProofingHistoryViewModel}">
+                            <historyview:EnduranceHistoryView></historyview:EnduranceHistoryView>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Viewbox>
+        </Grid>
+        <!--<Grid Grid.Row="1">
+            <Grid Visibility="{Binding Path=VisibilityDeformation,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="595*"/>
+                    <ColumnDefinition Width="694*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid Visibility="{Binding Path=VisibilityEndurance,Converter={StaticResource BooleanToVisibilityConverter}}">
+            </Grid>
+            <Grid Visibility="{Binding Path=VisibilityReliability,Converter={StaticResource BooleanToVisibilityConverter}}">
+            </Grid>
+        </Grid>-->
+    </Grid>
+</UserControl>

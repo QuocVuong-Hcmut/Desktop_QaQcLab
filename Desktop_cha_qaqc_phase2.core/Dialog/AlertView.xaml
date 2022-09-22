@@ -1,0 +1,43 @@
+﻿<Window x:Class="Desktop_cha_qaqc_phase2.Core.Dialog.AlertView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop_cha_qaqc_phase2.Core.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="AlertView" Height="180" Width="600"
+        BorderBrush="Black"
+        BorderThickness="1.5"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel
+        Margin="20">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="AlertCircle" 
+                                         Height="50" Width="50" Foreground="red"/>
+                <TextBlock
+                Name="Message"
+                Margin="5"
+                Text="{Binding Message, Mode=OneTime}"
+                FontSize="24"
+                Foreground="gray"
+                HorizontalAlignment="Center"/>
+            </StackPanel>
+            <Button
+          Name="CloseBtn"
+          Margin="0 10 0 0"
+          BorderThickness="0.5"
+          FontSize="15"
+          Background="Orange"
+          Foreground="Wheat"
+          Width="120"
+          Content="OK"
+          Command="{Binding ConfirmCommand}" Click="CloseBtn_Click">
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</Window>
+

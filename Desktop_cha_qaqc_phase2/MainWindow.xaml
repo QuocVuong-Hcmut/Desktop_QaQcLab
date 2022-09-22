@@ -1,0 +1,224 @@
+﻿<Window x:Class="Desktop_cha_qaqc_phase2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:Desktop_cha_qaqc_phase2.Views"
+        xmlns:component="clr-namespace:Desktop_cha_qaqc_phase2.Resources.Components"
+        xmlns:Loginviewmodel="clr-namespace:Desktop_cha_qaqc_phase2.core.ViewModel;assembly=Desktop_cha_qaqc_phase2.core"
+        xmlns:LoginView="clr-namespace:Desktop_cha_qaqc_phase2.Views.Login"
+        xmlns:SettingViewModel="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.SettingViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:Supervisorviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.SupervisorViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:Reportviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.ReportViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:Warningviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.WarningViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:Historyviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.HistoryViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:Helpviewmodel ="clr-namespace:Desktop_cha_qaqc_phase2.Core.ViewModel.HelpViewModel;assembly=Desktop_cha_qaqc_phase2.Core"
+        xmlns:CommondView="clr-namespace:Desktop_cha_qaqc_phase2.Views"
+        xmlns:Helpview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Help"
+        xmlns:reportview="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="824" Width="1526">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.75*"></ColumnDefinition>
+            <ColumnDefinition Width="8.25*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <materialDesign:DialogHost DataContext="{Binding DialogService}" 
+                                   IsOpen="{Binding IsOpen}" 
+                                   Grid.Column="1"
+                                   >
+
+            <materialDesign:DialogHost.DialogContent>
+                <local:ConfirmSettingView/>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <Grid  Grid.Column="0" Background="#FF00294D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="7*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--logo bách khoa-->
+            <!--Ctrl K C de command 
+            Ctrl K U de uncommand-->
+            <StackPanel Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                </Grid>
+                <WrapPanel>
+                    <!--<Image 
+                        Visibility="Visible"
+                        Height="100" Width="100"
+                        Source="D:\sourceCs\luận văn\Desktop_cha_qaqc_phase2\Desktop_cha_qaqc_phase2\Resources\Images\LOGO_Automation.jpg"
+                           Stretch="Uniform" Margin="5"/>
+                    <Image
+                        Visibility="Visible"
+                        Height="85" Width="100"
+                        Source="D:\sourceCs\luận văn\Desktop_cha_qaqc_phase2\Desktop_cha_qaqc_phase2\Resources\Images\LOGO_BK2.jpg"
+                           Stretch="Uniform" Margin="5"/>-->
+                    <!--<Image 
+                        x:Name="img1"
+                        Height="100"  Width="100"
+                        Source="\Resources\Images\Logo_CHA.png"
+                           Stretch="Uniform" Margin="5"/>
+                    <Image
+                        Visibility="Visible"
+                        x:Name="img2"
+                        Height="100"  Width="100"
+                        Source="/Resources/Images/Logo_BK.jpg"
+                           Stretch="Uniform" Margin="5"/>-->
+                </WrapPanel>
+                <Grid Height="15"  />
+                <!--<Label HorizontalAlignment="Center" Content="Tran Duc Tu" FontSize="24" FontStyle="Italic" Foreground="#78BAED"/>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="71*" />
+                        <ColumnDefinition Width="67*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Label HorizontalAlignment="Center" Content="Tdtu" FontSize="24" Foreground="#78BAED" FontStyle="Italic"/>-->
+            </StackPanel>
+            <!--Thiết kế nút bấm-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <component:MenuButton x:Name="Loginbtn" 
+                                          IsRequired="{Binding isLoginSelected}"
+                                              ContentText="Sản phẩm" 
+                                              Height="81" 
+                                              VerticalAlignment="Top"
+                                          IconValue="BasketFill">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding LoggingCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="1" IsEnabled="{Binding isEnable}">
+                    <component:MenuButton x:Name="Settingbtn" 
+                                           IsRequired="{Binding isSettingSelected}"
+                                              ContentText="CÀI ĐẶT"
+                                              IconValue="Settings">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding SettingCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="2" IsEnabled="{Binding isEnable}">
+                    <component:MenuButton x:Name="Supervisorbtn" 
+                                           IsRequired="{Binding isSupervisorSelected}"
+                                          ContentText="GIÁM SÁT" 
+                                          Height="81" 
+                                          VerticalAlignment="Center" 
+                                          Grid.ColumnSpan="2">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding SupervisorCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="3" IsEnabled="{Binding isEnable}">
+                    <component:MenuButton x:Name="Reporttn" 
+                                           IsRequired="{Binding isReportSelected}"
+                                              ContentText="BÁO CÁO"
+                                              IconValue="ClipboardText">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding ReportCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="4" IsEnabled="{Binding isEnable}">
+                    <component:MenuButton x:Name="Alertbtn"
+                                           IsRequired="{Binding isWarningSelected}"
+                                              ContentText="CẢNH BÁO"
+                                              IconValue="Alert" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding WarningCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="5" IsEnabled="{Binding isEnable}" >
+                    <component:MenuButton x:Name="Historybtn"
+                                           IsRequired="{Binding isHistorySelected}"
+                                              ContentText="LỊCH SỬ"
+                                              IconValue="History" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding HistoryCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+                <Grid Grid.Row="6" IsEnabled="{Binding isEnable}">
+                    <component:MenuButton x:Name="Helpbtn"
+                                           IsRequired="{Binding isHelpSelected}"
+                                              ContentText="TRỢ GIÚP"
+                                              IconValue="HelpBox" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding HelpCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </component:MenuButton>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Viewbox
+            x:Name="Panel_Menu"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            StretchDirection="Both"
+            Stretch="Uniform">
+            <ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type Loginviewmodel:LoginViewModel}">
+                        <LoginView:LoginView></LoginView:LoginView>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type SettingViewModel:MainSettingsViewModel}">
+                        <CommondView:CommonMainMenuView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type Supervisorviewmodel:MainSupervisorViewModel}">
+                        <CommondView:CommonMainMenuView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type Reportviewmodel:MainReportViewModel}">
+                        <CommondView:CommonMainMenuView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type Warningviewmodel:MainWarningViewModel}">
+                        <CommondView:CommonMainMenuView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type Historyviewmodel:MainHistoryViewModel}">
+                        <CommondView:CommonMainMenuView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type Helpviewmodel:MainHelpViewModel}">
+                        <Helpview:HelpView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Viewbox>
+    </Grid>
+</Window>

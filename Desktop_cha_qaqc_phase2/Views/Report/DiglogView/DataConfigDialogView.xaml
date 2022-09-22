@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Desktop_cha_qaqc_phase2.Views.Report.DataConfigDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Desktop_cha_qaqc_phase2.Views.Report"
+             xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="270" d:DesignWidth="500"
+             xmlns:converter="clr-namespace:Desktop_cha_qaqc_phase2.ValueConverter">
+    <UserControl.Resources>
+        <converter:BooleanToInvertBoolean x:Key="BooleanToInvertBoolean"></converter:BooleanToInvertBoolean>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <StackPanel  Margin="20">
+                <CheckBox IsChecked="{Binding Mode,UpdateSourceTrigger=PropertyChanged}" >Default Mode</CheckBox>
+                <CheckBox IsChecked="{Binding Mode,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToInvertBoolean}}">Custome Mode</CheckBox>
+                <TextBox 
+                 IsEnabled="{Binding Mode,Converter={StaticResource InvertBooleanConverter}, UpdateSourceTrigger=Explicit}"
+                 Text="{Binding NumOfSammples}"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 HorizontalAlignment="Left"
+                 Width="100"
+                 materialdesign:HintAssist.Hint="Số mẫu">
+                </TextBox>
+            </StackPanel>
+            <Button VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                    Style="{StaticResource NormalButton}"
+                    Margin="20" Content="Save"
+                    Command="{Binding SaveDataConfigurationCommand}"
+                    ></Button>
+        </Grid>
+        <Grid Grid.Column="1" Margin="20">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListSample}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Số thứ tự" Binding="{Binding stt}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Mẫu" Binding="{Binding Sample}">
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

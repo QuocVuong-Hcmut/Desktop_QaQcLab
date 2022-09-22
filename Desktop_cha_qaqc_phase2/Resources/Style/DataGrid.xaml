@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="DataGrid" x:Key="DataGrid">
+        <Setter Property="RowBackground" Value="#FFBAD3E0"></Setter>
+        <Setter Property="AlternatingRowBackground" Value="#E4F0FF"></Setter>
+        <Setter Property="HorizontalAlignment" Value = "Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="SelectionMode" Value="Extended"></Setter>
+        <Setter Property="GridLinesVisibility" Value="None"></Setter>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"></Setter>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
+        <Setter Property="Background" Value="#FFA7A3A3"></Setter>
+        <Setter Property="EnableColumnVirtualization" Value="False"></Setter>
+        <Setter Property="AreRowDetailsFrozen" Value="True"></Setter>
+        <Setter Property="CanUserReorderColumns" Value="False"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+   
+    </Style>
+    <Style TargetType="DataGridRow" x:Key="DataGridRow">
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Green"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="DataGridCell" x:Key="DataGridCell">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="DataGridColumnHeader" x:Key="DataGridColumnHeader">
+        <Setter Property="Background" Value="#00447F"></Setter>
+        <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+    </Style>
+</ResourceDictionary>
